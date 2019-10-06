@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import logo from './assets/logo.svg'
+
+import api from './services/api'
+import Routes from './routes'
 
 function App() {
+
+  const [email, setEmail] = useState('')
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    const response = await api.post('/session', { email })
+    
+    const { _id } = response.data
+    localStorage.setItem('user', _id)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <img src= { logo } alt="AirCnC"/>
+
+      <div className="content">
+        <Routes />
+      </div>
     </div>
   );
 }
