@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { Schema, model } = require('../database')
 
 const SpotSchema = new Schema({
@@ -22,6 +24,14 @@ const SpotSchema = new Schema({
         required: true
     },
 
+},{
+    toJSON:{
+        virtuals: true
+    }
+})
+
+SpotSchema.virtual('thumbnail_url').get(function(){
+    return `${process.env.URL}/files/${this.thumbnail}`
 })
 
 module.exports = model('Spot', SpotSchema)

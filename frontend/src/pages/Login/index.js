@@ -1,9 +1,23 @@
-import React from 'react'
+import React,{ useState } from 'react'
+import api from '../../services/api'
 
+export default function Login({ history }) {
 
-export default function Login() {
+    const [email, setEmail] = useState('')
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+
+        const response = await api.post('/session', { email })
+        
+        const { _id } = response.data
+        localStorage.setItem('user', _id)
+        
+        history.push('/dash')
+    }
+
     return(
-        <div>
+        <>
             <p>
                 Ofereça <strong>spots</strong> para programadores e encontre <strong>talentos</strong> para seu time!
             </p>
@@ -18,6 +32,6 @@ export default function Login() {
             />
             <button type = "submit" className = "btn" >Entrar</button>
             </form>
-        </div>
+        </>
     )
 }
