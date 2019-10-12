@@ -28,7 +28,7 @@ export default function Dashboard() {
                 {spots.map(spot => <List key = {spot._id} data = {spot} />)}
             </ul>
             <Link to = "/new">
-                Cadastrar Spot
+                <button className = "btn">Cadastrar Spot</button>
             </Link>
        </>
     )
